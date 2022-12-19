@@ -1,0 +1,31 @@
+{
+  "name": "aamvajs",
+  "version": "0.0.1",
+  "description": "AAMVA Parser",
+  "main": "./dist",
+  "author": "d.lukutin",
+  "license": "MIT",
+  "keywords": [
+    "aamva",
+    "driver",
+    "id_card",
+    "AAMVA",
+    "AMVA",
+    "pdf417",
+    "PDF417"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-lukutin/aamvajs.git"
+  },
+  "homepage": "https://github.com/d-lukutin/aamvajs",
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.17",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  }
+}
