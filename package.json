@@ -21,7 +21,7 @@
   "homepage": "https://github.com/d-lukutin/aamvajs",
   "scripts": {
     "build": "./node_modules/.bin/tsc",
-    "prepare": "npm run build"
+    "prepare": "./node_modules/.bin/tsc"
   },
   "devDependencies": {
     "@types/node": "^18.11.17",
