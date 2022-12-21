@@ -36,8 +36,8 @@ export class AAMVA {
             sh.data = rawDocument
             .substring(sh.offset + 2, sh.offset + sh.length)
             .replace(separator + terminator, '')
-            .replace(terminator, '')
-            .split(separator);
+            .split(separator)
+            .filter(d => d.length);
         });
 
         const document: IDocument = {

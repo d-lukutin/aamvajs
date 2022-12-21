@@ -1,6 +1,6 @@
 {
   "name": "aamvajs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "AAMVA Parser",
   "main": "./dist",
   "author": "d.lukutin",
