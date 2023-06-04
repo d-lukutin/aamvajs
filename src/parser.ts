@@ -34,7 +34,7 @@ export class AAMVA {
 
         subfiles.forEach(sh => {
             sh.data = rawDocument
-            .substring(sh.offset + 2, sh.offset + sh.length)
+            .substring(sh.offset + separator.length + terminator.length, sh.offset + sh.length - terminator.length)
             .replace(separator + terminator, '')
             .split(separator)
             .filter(d => d.length);
@@ -61,11 +61,12 @@ export class AAMVA {
                 dataHeader = subfileDataField.substring(0, 3);
 
                 if (dataMatchHeaders[dataHeader]) {
-                    if (dataMatchHeaders[dataHeader].converter) {
-                        document.data[dataMatchHeaders[dataHeader].name] = dataMatchHeaders[dataHeader].converter(subfileDataField.substring(3));
-                    }
-                    else {
-                        document.data[dataMatchHeaders[dataHeader].name] = subfileDataField.substring(3);
+                    document.data[dataMatchHeaders[dataHeader].name] = subfileDataField.substring(3);
+                    
+                    if (dataMatchHeaders[dataHeader].converters?.length) {
+                        dataMatchHeaders[dataHeader].converters.forEach(converter => {
+                            document.data[dataMatchHeaders[dataHeader].name] = converter(document.data[dataMatchHeaders[dataHeader].name]);
+                        });
                     }
                 }
             });

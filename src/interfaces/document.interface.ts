@@ -62,5 +62,6 @@ export interface IDocument {
         readonly under21Until?: string;
         readonly organDonorIndicator?: string;
         readonly veteranIndicator?: string;
+        readonly fullName?: string[];
     }
 }

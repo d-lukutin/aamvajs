@@ -1,6 +1,8 @@
+import { Converter } from './converter.type';
+
 export interface IDataMatch {
     readonly [key: string]: {
         readonly name: string;
-        converter?(data: string): string;
+        readonly converters?: Converter[];
     };
 }
