@@ -6,6 +6,7 @@ import {
 
 export class AAMVA {
     static raw(rawDocument: string): IDocument {
+        const headerLenght = 21;
         const separator = rawDocument.charAt(1);
         const terminator = rawDocument.charAt(3);
         const fileType = rawDocument.substring(4, 9).replace(' ', '');
@@ -13,32 +14,6 @@ export class AAMVA {
         const version = parseInt(rawDocument.substring(15, 17), 10);
         const jurisdictionVersion = parseInt(rawDocument.substring(17, 19), 10);
         const numberOfEntries = parseInt(rawDocument.substring(19, 21), 10);
-
-        const subfiles: ISubfile[] = [{
-            type: rawDocument.substring(21, 23),
-            offset: parseInt(rawDocument.substring(23, 27)),
-            length: parseInt(rawDocument.substring(27, 31)),
-            data: []
-        }];
-        let currentOffset = 31;
-
-        while (currentOffset < subfiles[0].offset) {
-            subfiles.push({
-                type: rawDocument.substring(currentOffset, currentOffset + 2),
-                offset: parseInt(rawDocument.substring(currentOffset + 2, currentOffset + 6)),
-                length: parseInt(rawDocument.substring(currentOffset + 6, currentOffset + 10)),
-                data: []
-            });
-            currentOffset += 10;
-        }
-
-        subfiles.forEach(sh => {
-            sh.data = rawDocument
-            .substring(sh.offset + separator.length + terminator.length, sh.offset + sh.length - terminator.length)
-            .replace(separator + terminator, '')
-            .split(separator)
-            .filter(d => d.length);
-        });
 
         const document: IDocument = {
             header: {
@@ -50,14 +25,42 @@ export class AAMVA {
                 jurisdictionVersion,
                 numberOfEntries,
             },
-            subfiles,
+            subfiles: [],
             data: {}
         };
 
+        let subfileOffset = 0;
+        let subfuleLength = 0;
+        let subfileData: string[];
         let dataHeader = '';
 
-        subfiles.forEach(subfile => {
-            subfile.data.forEach(subfileDataField => {
+        for (let i = 0; i < numberOfEntries; i++) {
+            subfileOffset = parseInt(rawDocument.substring(headerLenght + i * 10 + 2, headerLenght + i * 10 + 6));
+            subfuleLength = parseInt(rawDocument.substring(headerLenght + i * 10 + 6, headerLenght + i * 10 + 10));
+
+            if (!subfileOffset) {
+                if (i === 0) {
+                    subfileOffset = headerLenght + numberOfEntries * 10;
+                }
+                else {
+                    subfileOffset = document.subfiles[document.subfiles.length - 1].offset + document.subfiles[document.subfiles.length - 1].length;
+                }
+            }
+
+            subfileData = rawDocument
+            .substring(subfileOffset + separator.length + terminator.length, subfileOffset + subfuleLength - terminator.length)
+            .replace(separator + terminator, '')
+            .split(separator)
+            .filter(field => field.length);
+
+            document.subfiles.push({
+                type: rawDocument.substring(headerLenght + i * 10, headerLenght + i * 10 + 2),
+                offset: subfileOffset,
+                length: subfuleLength,
+                data: subfileData
+            });
+
+            subfileData.forEach(subfileDataField => {
                 dataHeader = subfileDataField.substring(0, 3);
 
                 if (dataMatchHeaders[dataHeader]) {
@@ -70,7 +73,7 @@ export class AAMVA {
                     }
                 }
             });
-        });
+        }
 
         return document;
     }
