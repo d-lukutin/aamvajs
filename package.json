@@ -1,18 +1,16 @@
 {
   "name": "aamvajs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "AAMVA Parser",
   "main": "./dist",
   "author": "d.lukutin",
   "license": "MIT",
   "keywords": [
     "aamva",
-    "driver",
-    "id_card",
-    "AAMVA",
-    "AMVA",
-    "pdf417",
-    "PDF417"
+    "amva",
+    "driver-license",
+    "drivers-license",
+    "usdl"
   ],
   "repository": {
     "type": "git",
