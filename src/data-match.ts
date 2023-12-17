@@ -63,5 +63,14 @@ export const dataMatchHeaders: IDataMatch = {
     DDJ: { name: 'under21Until', converters: [clearConverter, dateConverter] },
     DDK: { name: 'organDonorIndicator', converters: [clearConverter] },
     DDL: { name: 'veteranIndicator', converters: [clearConverter] },
-    ZNA: { name: 'fullName', converters: [clearConverter, splitConverter('@')] }
+    ZNA: { name: 'fullName', converters: [clearConverter, splitConverter('@')] },
+    ZFB: { name: 'specialRestrictions', converters: [clearConverter] },
+    ZFC: { name: 'safeDriverIndicator', converters: [clearConverter] },
+    ZFD: { name: 'sexualPredator', converters: [clearConverter] },
+    ZFE: { name: 'sexOffenderStatute', converters: [clearConverter] },
+    ZFF: { name: 'insulinDependent', converters: [clearConverter] },
+    ZFG: { name: 'developmentalDisability', converters: [clearConverter] },
+    ZFH: { name: 'hearingImpaired', converters: [clearConverter] },
+    ZFI: { name: 'fishAndWildlifeDesignations', converters: [clearConverter] },
+    ZFJ: { name: 'customerNumber', converters: [clearConverter] }
 };
