@@ -1,7 +1,7 @@
 {
   "name": "aamvajs",
-  "version": "0.0.9",
-  "description": "AAMVA Parser",
+  "version": "0.1.0",
+  "description": "Parse Pdf417 barcode data from US and Canada driver licenses. AAMVA Parser",
   "main": "./dist",
   "author": "d.lukutin",
   "license": "MIT",

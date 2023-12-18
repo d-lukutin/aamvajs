@@ -1,8 +1,5 @@
 import { dataMatchHeaders } from './data-match';
-import { 
-    ISubfile,
-    IDocument
-} from './interfaces';
+import { IDocument } from './interfaces';
 
 export class AAMVA {
     static raw(rawDocument: string): IDocument {
@@ -26,7 +23,9 @@ export class AAMVA {
                 numberOfEntries,
             },
             subfiles: [],
-            data: {}
+            data: {
+                localFields: {}
+            }
         };
 
         let subfileOffset = 0;
@@ -60,16 +59,35 @@ export class AAMVA {
                 data: subfileData
             });
 
+            let fieldName = '';
+            let fieldData: string | string[] = '';
+
             subfileData.forEach(subfileDataField => {
                 dataHeader = subfileDataField.substring(0, 3);
 
                 if (dataMatchHeaders[dataHeader]) {
-                    document.data[dataMatchHeaders[dataHeader].name] = subfileDataField.substring(3);
-                    
-                    if (dataMatchHeaders[dataHeader].converters?.length) {
-                        dataMatchHeaders[dataHeader].converters.forEach(converter => {
-                            document.data[dataMatchHeaders[dataHeader].name] = converter(document.data[dataMatchHeaders[dataHeader].name]);
+                    fieldName = dataMatchHeaders[dataHeader].name;
+
+                    if (dataMatchHeaders[dataHeader].nameByVersion?.length) {
+                        dataMatchHeaders[dataHeader].nameByVersion.forEach(nameByVersion => {
+                            if (nameByVersion.versions.some(version => version === document.header.version)) {
+                                fieldName = nameByVersion.name;
+                            }
                         });
+                    }
+
+                    if (document.data.localFields[fieldName]?.length) {
+                        fieldData =  document.data.localFields[fieldName];
+                    }
+                    else {
+                        fieldData = dataMatchHeaders[dataHeader].converters.reduce((acc, converter) => converter(acc), subfileDataField.substring(3));
+                    }
+
+                    if (dataMatchHeaders[dataHeader].isLocalField) {
+                        document.data.localFields[fieldName] = fieldData;
+                    }
+                    else {
+                        document.data[fieldName] = fieldData;
                     }
                 }
             });

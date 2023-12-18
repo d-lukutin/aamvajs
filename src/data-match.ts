@@ -46,6 +46,7 @@ export const dataMatchHeaders: IDataMatch = {
     DCU: { name: 'nameSuffix', converters: [clearConverter] },
     DCE: { name: 'weightRange', converters: [clearConverter] },
     DCL: { name: 'race', converters: [clearConverter] },
+    DCH: { name: 'federalCommercialVehicleCodes', converters: [clearConverter] },
     DCM: { name: 'standardVehicleClassification', converters: [clearConverter] },
     DCN: { name: 'standardEndorsementCode', converters: [clearConverter] },
     DCO: { name: 'standardRestrictionCode', converters: [clearConverter] },
@@ -63,14 +64,35 @@ export const dataMatchHeaders: IDataMatch = {
     DDJ: { name: 'under21Until', converters: [clearConverter, dateConverter] },
     DDK: { name: 'organDonorIndicator', converters: [clearConverter] },
     DDL: { name: 'veteranIndicator', converters: [clearConverter] },
-    ZNA: { name: 'fullName', converters: [clearConverter, splitConverter('@')] },
-    ZFB: { name: 'specialRestrictions', converters: [clearConverter] },
-    ZFC: { name: 'safeDriverIndicator', converters: [clearConverter] },
-    ZFD: { name: 'sexualPredator', converters: [clearConverter] },
-    ZFE: { name: 'sexOffenderStatute', converters: [clearConverter] },
-    ZFF: { name: 'insulinDependent', converters: [clearConverter] },
-    ZFG: { name: 'developmentalDisability', converters: [clearConverter] },
-    ZFH: { name: 'hearingImpaired', converters: [clearConverter] },
-    ZFI: { name: 'fishAndWildlifeDesignations', converters: [clearConverter] },
-    ZFJ: { name: 'customerNumber', converters: [clearConverter] }
+
+    //New York
+    ZNA: { name: 'fullName', isLocalField: true, converters: [clearConverter, splitConverter('@')] },
+
+    // California
+    ZCA: { name: 'eyeColor', nameByVersion: [{
+        versions: [4],
+        name: 'zca'
+    }], isLocalField: true, converters: [clearConverter] },
+    ZCB: { name: 'hairColor', nameByVersion: [{
+        versions: [4],
+        name: 'restriction'
+    }], isLocalField: true, converters: [clearConverter] },
+    ZCC: { name: 'eyeColor', isLocalField: true, converters: [clearConverter] },
+    ZCD: { name: 'hairColor', isLocalField: true, converters: [clearConverter] },
+
+    // Florida
+    ZFA: { name: 'replacedDate', isLocalField: true, converters: [clearConverter, dateConverter] },
+    ZFB: { name: 'specialRestrictions', isLocalField: true, converters: [clearConverter] },
+    ZFC: { name: 'safeDriverIndicator', isLocalField: true, converters: [clearConverter] },
+    ZFD: { name: 'sexualPredator', isLocalField: true, converters: [clearConverter] },
+    ZFE: { name: 'sexOffenderStatute', isLocalField: true, converters: [clearConverter] },
+    ZFF: { name: 'insulinDependent', isLocalField: true, converters: [clearConverter] },
+    ZFG: { name: 'developmentalDisability', isLocalField: true, converters: [clearConverter] },
+    ZFH: { name: 'hearingImpaired', isLocalField: true, converters: [clearConverter] },
+    ZFI: { name: 'fishAndWildlifeDesignations', isLocalField: true, converters: [clearConverter] },
+    ZFJ: { name: 'customerNumber', isLocalField: true, converters: [clearConverter] },
+
+    // Ontario
+    ZOA: { name: 'fullName', isLocalField: true, converters: [clearConverter, splitConverter(',')] },
+    ZOZ: { name: 'idNumber', isLocalField: true, converters: [clearConverter] },
 };

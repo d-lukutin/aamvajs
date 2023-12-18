@@ -45,6 +45,7 @@ export interface IDocument {
         readonly nameSuffix?: string;
         readonly weightRange?: string;
         readonly race?: string;
+        readonly federalCommercialVehicleCodes?: string;
         readonly standardVehicleClassification?: string;
         readonly standardEndorsementCode?: string;
         readonly standardRestrictionCode?: string;
@@ -63,5 +64,23 @@ export interface IDocument {
         readonly organDonorIndicator?: string;
         readonly veteranIndicator?: string;
         readonly fullName?: string[];
+        readonly localFields?: {
+            readonly fullName?: string[];
+            readonly restriction?: string;
+            readonly eyeColor?: string;
+            readonly hairColor?: string;
+            readonly replacedDate?: string;
+            readonly specialRestrictions?: string;
+            readonly safeDriverIndicator?: string;
+            readonly sexualPredator?: string;
+            readonly sexOffenderStatute?: string;
+            readonly insulinDependent?: string;
+            readonly developmentalDisability?: string;
+            readonly hearingImpaired?: string;
+            readonly fishAndWildlifeDesignations?: string;
+            readonly customerNumber?: string;
+            readonly idNumber?: string;
+            readonly zca?: string;
+        }
     }
 }
