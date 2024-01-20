@@ -1,8 +1,9 @@
 export function dateConverter (data: string): string {
-    if (!data) return undefined;
-    if (!data.length) return undefined;
+    if (!data.length) return '';
 
-    data = data.replace(/-/g, '');
+    data = data.replace(/\D/g, '');
+
+    if (data === '00000000') return '';
     
     const start = parseInt(data.substring(0, 2));
     if (start < 13) {

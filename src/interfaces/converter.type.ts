@@ -1,1 +1,1 @@
-export type Converter = (data: string) => string | string[];
+export type Converter = (data: string) => string;

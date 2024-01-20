@@ -72,7 +72,10 @@ ZFK
 `;
 
 
-const document = AAMVA.raw(rawDocument);
+const document = AAMVA.raw(rawDocument, {
+    clearNoneValue: false, // Default false
+    removeEmptyFields: false // Default false
+});
 
 // or
 
